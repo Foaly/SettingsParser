@@ -17,8 +17,8 @@ int main()
     // if "width" and "height" are not found in the settings file their values are untouched 
     // (meaning you can easily set defaults like shown above)
 
-    std::string str;
-    settings.get("title", str);
+    std::string title;
+    settings.get("title", title);
 
     float gravity;
     settings.get("g", gravity);
@@ -34,6 +34,7 @@ int main()
 
     //....
 
+    std::string newTitle = "SFML Settings Parser rocks!";
     settings.set("title", "SFML Settings Parser rocks!");
     settings.saveToFile(); // this is also done in the destructor
 

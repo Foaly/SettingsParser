@@ -197,6 +197,16 @@ void SettingsParser::set(const std::string& param, const std::string value)
     }                                 
 }
 
+void SettingsParser::set(const std::string& param, const char* value)
+{
+    int i = findIndex(param);
+    if (i > -1)
+    {
+        m_data[i].second = std::string(value);
+        m_isChanged =  true;
+    }                                 
+}
+
 
 void SettingsParser::set(const std::string& param, const bool value)
 {
