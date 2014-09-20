@@ -27,10 +27,13 @@ bool SettingsParser::loadFile(const std::string& filename)
 }
 
 
-bool SettingsParser::saveToFile() const
+bool SettingsParser::saveToFile()
 {
     if(m_isChanged)
+    {
+        m_isChanged = false;
         return write();
+    }
     return true;
 }
 
