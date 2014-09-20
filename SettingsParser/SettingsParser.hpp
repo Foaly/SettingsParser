@@ -10,7 +10,7 @@ public:
     SettingsParser();
     ~SettingsParser();
 
-    bool loadFile(const std::string& filename);
+    bool loadFromFile(const std::string& filename);
     bool saveToFile();
 
     bool isChanged() const;

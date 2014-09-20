@@ -18,7 +18,7 @@ SettingsParser::~SettingsParser()
 }
 
 
-bool SettingsParser::loadFile(const std::string& filename)
+bool SettingsParser::loadFromFile(const std::string& filename)
 {
     m_data.clear();
     m_size = 0;

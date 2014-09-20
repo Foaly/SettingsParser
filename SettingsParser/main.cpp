@@ -4,7 +4,7 @@
 int main()
 {
     SettingsParser settings;
-    if(!settings.loadFile("settings.txt"))
+    if(!settings.loadFromFile("settings.txt"))
     {
         std::cout << "Error loading settings file!" << std::endl;
         return -1;
