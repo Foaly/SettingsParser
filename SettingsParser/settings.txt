@@ -1,20 +1,23 @@
-# Settings File
+# if a line starts with a '#' the line is a comment and will be ignored
+# blank lines will also be ignored
 
-# frame size 
-# note that this is the frame size the camera is capturing at, so it has to be supported by the camera
-# if it's not the camera will fall back to something it supports
-# 640x480 800x600 1280x960 (seem to work well for a Logitech C310 and a 4:3 monitor)
-#        1024x576 1280x720 (seem to work well for a Logitech C310 and a 16:9 monitor)
+# the syntax is
+key = value
 
-width = 1280
-height = 720
+# screen size
+width = 1024
+height = 768
 
-title = SFML
+# window title
+title = sfml tutorial
 
-# fullscreen
+# phycics constants
+g = 9.81
 
+# player initials
+player = M
+
+# video mode
 fullscreen = TRUE
-
-# time between the change of effects in auto mode (in seconds; default is 60 sec)
 
 autoModeDuration = 60
