@@ -5,20 +5,18 @@
 key = value
 
 # screen size
-width = 1024 #comment
+width = 1024
 height = 768
 
 # window title
 title = sfml tutorial
 
 # phycics constants
-g = 9.81iop
+g = 9.81
 
-# player initials
-player = Maxs
-player = Xa m
+# player initials (since the key is the same the value will be overwritten)
+player = M
+player = X
 
 # video mode
 fullscreen = TRUE
-
-autoModeDuration = 60

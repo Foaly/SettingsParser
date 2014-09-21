@@ -3,6 +3,8 @@
 
 int main()
 {
+    //....
+
     SettingsParser settings;
     if(!settings.loadFromFile("settings.txt"))
     {
@@ -28,9 +30,6 @@ int main()
 
     bool fullscreen;
     settings.get("fullscreen", fullscreen);
-
-    int autoModeDuration;
-    settings.get("autoModeDuration", autoModeDuration);
 
     //....
 
