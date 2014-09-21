@@ -267,6 +267,7 @@ void SettingsParser::set(const std::string& key, const char value)
         std::string tmp = "";
         tmp = value;
         it->second = tmp;
+        m_isChanged =  true;
     }
 }
 
