@@ -57,7 +57,7 @@ bool SettingsParser::read()
             // trim leading whitespace
             while(std::isspace(line[j], loc))
                 j++;
-            // get key string
+            // get the key string
             const int beginKeyString = j;
             while(!std::isspace(line[j], loc))
                 j++;
@@ -67,12 +67,8 @@ bool SettingsParser::read()
             while(std::isspace(line[j], loc) || line[j] == '=')
                 j++;
             
-            // get value string
-            const int beginValueString = j;
-            const size_t length = line.size();
-            while(j < length && !std::isspace(line[j], loc))
-                j++;
-            const std::string value = line.substr(beginValueString, j - beginValueString);
+            // get the value string
+            const std::string value = line.substr(j, line.size() - j);
 
             m_data[key] = value;
         }
@@ -123,11 +119,7 @@ bool SettingsParser::write() const
                         j++;
                 
                     // get the value string
-                    const int beginValueString = j;
-                    const size_t length = line.size();
-                    while(j < length && !std::isspace(line[j], loc))
-                        j++;
-                    value = line.substr(beginValueString, j - beginValueString);
+                    value = line.substr(j, line.size() - j);
                 }
             }
             else

@@ -5,18 +5,18 @@
 key = value
 
 # screen size
-width = 1024
+width = 1024 #comment
 height = 768
 
 # window title
 title = sfml tutorial
 
 # phycics constants
-g = 9.81
+g = 9.81iop
 
 # player initials
-player = M
-player = X
+player = Maxs
+player = Xa m
 
 # video mode
 fullscreen = TRUE
