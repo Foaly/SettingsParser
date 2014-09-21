@@ -57,11 +57,11 @@ bool SettingsParser::read()
             // trim leading whitespace
             while(std::isspace(line[j], loc))
                 j++;
-            // get parameter string
-            const int beginParamString = j;
+            // get key string
+            const int beginKeyString = j;
             while(!std::isspace(line[j], loc))
                 j++;
-            const std::string param = line.substr(beginParamString, j - beginParamString);
+            const std::string key = line.substr(beginKeyString, j - beginKeyString);
 
             // skip the assignment
             while(std::isspace(line[j], loc) || line[j] == '=')
@@ -74,7 +74,7 @@ bool SettingsParser::read()
                 j++;
             const std::string value = line.substr(beginValueString, j - beginValueString);
 
-            m_data[param] = value;
+            m_data[key] = value;
         }
     }
     in.close();
@@ -90,7 +90,7 @@ bool SettingsParser::write() const
     std::ifstream in(m_filename);
     if(in.is_open())
     {
-        std::string line, param, value;
+        std::string line, key, value;
         const std::locale loc;
         while(std::getline(in, line))
         {
@@ -101,14 +101,14 @@ bool SettingsParser::write() const
                 // trim leading whitespace
                 while(std::isspace(line[j], loc))
                     j++;
-                // get the parameter string
-                const int beginParamString = j;
+                // get the key string
+                const int beginKeyString = j;
                 while(!std::isspace(line[j], loc))
                     j++;
-                param = line.substr(beginParamString, j - beginParamString);
+                key = line.substr(beginKeyString, j - beginKeyString);
 
                 // check if the key is found in the map
-                std::map<std::string, std::string>::const_iterator it = m_data.find(param);
+                std::map<std::string, std::string>::const_iterator it = m_data.find(key);
                 if (it != m_data.end())
                 {
                     // if so take it's value
@@ -132,10 +132,10 @@ bool SettingsParser::write() const
             }
             else
             {
-                param = line;
+                key = line;
                 value = "";
             }
-            fileContents.push_back(std::make_pair(param, value));
+            fileContents.push_back(std::make_pair(key, value));
         }
     }
     else
@@ -173,7 +173,7 @@ void SettingsParser::print() const
     for(auto& element: m_data)
         std::cout << element.first << " = " << element.second<< std::endl;
 
-    std::cout << m_data.size() << std::endl;
+    std::cout << std::endl << "Size: " << m_data.size() << std::endl;
 }
 
 
@@ -183,9 +183,9 @@ bool SettingsParser::isChanged() const
 }
 
 
-void SettingsParser::get(const std::string& param, std::string &value) const
+void SettingsParser::get(const std::string& key, std::string &value) const
 {
-    std::map<std::string, std::string>::const_iterator it = m_data.find(param);
+    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         value = it->second;
@@ -193,9 +193,9 @@ void SettingsParser::get(const std::string& param, std::string &value) const
 }
 
 
-void SettingsParser::get(const std::string& param, bool &value) const
+void SettingsParser::get(const std::string& key, bool &value) const
 {
-    std::map<std::string, std::string>::const_iterator it = m_data.find(param);
+    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         value = ((it->second == "TRUE") ? true : false);
@@ -203,9 +203,9 @@ void SettingsParser::get(const std::string& param, bool &value) const
 }
 
 
-void SettingsParser::get(const std::string& param, char &value) const
+void SettingsParser::get(const std::string& key, char &value) const
 {
-    std::map<std::string, std::string>::const_iterator it = m_data.find(param);
+    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         value = it->second[0];
@@ -213,9 +213,9 @@ void SettingsParser::get(const std::string& param, char &value) const
 }
 
 
-void SettingsParser::get(const std::string& param, int &value) const
+void SettingsParser::get(const std::string& key, int &value) const
 {
-    std::map<std::string, std::string>::const_iterator it = m_data.find(param);
+    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         std::stringstream ss(it->second);
@@ -224,9 +224,9 @@ void SettingsParser::get(const std::string& param, int &value) const
 }
 
 
-void SettingsParser::get(const std::string& param, float &value) const
+void SettingsParser::get(const std::string& key, float &value) const
 {
-    std::map<std::string, std::string>::const_iterator it = m_data.find(param);
+    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         std::stringstream ss(it->second);
@@ -235,9 +235,9 @@ void SettingsParser::get(const std::string& param, float &value) const
 }
 
 
-void SettingsParser::set(const std::string& param, const std::string value)
+void SettingsParser::set(const std::string& key, const std::string value)
 {
-    std::map<std::string, std::string>::iterator it = m_data.find(param);
+    std::map<std::string, std::string>::iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         it->second = value;
@@ -245,9 +245,9 @@ void SettingsParser::set(const std::string& param, const std::string value)
     }                                 
 }
 
-void SettingsParser::set(const std::string& param, const char* value)
+void SettingsParser::set(const std::string& key, const char* value)
 {
-    std::map<std::string, std::string>::iterator it = m_data.find(param);
+    std::map<std::string, std::string>::iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         it->second = std::string(value);
@@ -256,9 +256,9 @@ void SettingsParser::set(const std::string& param, const char* value)
 }
 
 
-void SettingsParser::set(const std::string& param, const bool value)
+void SettingsParser::set(const std::string& key, const bool value)
 {
-    std::map<std::string, std::string>::iterator it = m_data.find(param);
+    std::map<std::string, std::string>::iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         it->second = (value) ? "TRUE" : "FALSE";
@@ -267,9 +267,9 @@ void SettingsParser::set(const std::string& param, const bool value)
 }
 
 
-void SettingsParser::set(const std::string& param, const char value)
+void SettingsParser::set(const std::string& key, const char value)
 {
-    std::map<std::string, std::string>::iterator it = m_data.find(param);
+    std::map<std::string, std::string>::iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         std::string tmp = "";
@@ -279,9 +279,9 @@ void SettingsParser::set(const std::string& param, const char value)
 }
 
 
-void SettingsParser::set(const std::string& param, const int value)
+void SettingsParser::set(const std::string& key, const int value)
 {
-    std::map<std::string, std::string>::iterator it = m_data.find(param);
+    std::map<std::string, std::string>::iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         std::stringstream ss;
@@ -292,9 +292,9 @@ void SettingsParser::set(const std::string& param, const int value)
 }
 
 
-void SettingsParser::set(const std::string& param, const float value)
+void SettingsParser::set(const std::string& key, const float value)
 {
-    std::map<std::string, std::string>::iterator it = m_data.find(param);
+    std::map<std::string, std::string>::iterator it = m_data.find(key);
     if (it != m_data.end())
     {
         std::stringstream ss;
