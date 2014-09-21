@@ -38,6 +38,8 @@ int main()
     settings.set("title", "SFML Settings Parser rocks!");
     settings.saveToFile(); // this is also done in the destructor
 
+    settings.print();
+    std::cin.get();
 
     return 0;
 }

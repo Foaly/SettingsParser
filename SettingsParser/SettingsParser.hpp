@@ -2,7 +2,7 @@
 #define SETTINGSPARSER_INCLUDE
 
 #include <string>
-#include <vector>
+#include <map>
 
 class SettingsParser 
 {
@@ -32,14 +32,12 @@ public:
 
 
 private:
-    int findIndex(const std::string& param) const;
     bool read();
     bool write() const;
 
     bool m_isChanged;
     std::string m_filename;
-    std::vector<std::pair<std::string, std::string> > m_data;
-    size_t m_size;
+    std::map<std::string, std::string> m_data;
 };
 
 #endif // SETTINGSPARSER_INCLUDE

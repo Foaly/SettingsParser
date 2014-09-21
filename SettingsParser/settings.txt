@@ -16,6 +16,7 @@ g = 9.81
 
 # player initials
 player = M
+player = X
 
 # video mode
 fullscreen = TRUE
