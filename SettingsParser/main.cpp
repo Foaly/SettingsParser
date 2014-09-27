@@ -1,8 +1,11 @@
 #include "SettingsParser.hpp"
 #include <iostream>
+#include <vector>
 
 int main()
 {
+    //....
+
     SettingsParser settings;
     if(!settings.loadFromFile("settings.txt"))
     {
@@ -29,9 +32,9 @@ int main()
     bool fullscreen;
     settings.get("fullscreen", fullscreen);
 
-    int autoModeDuration;
-    settings.get("autoModeDuration", autoModeDuration);
-
+    std::vector<int> rectangle;
+    settings.get("rectangle", rectangle);
+    
     //....
 
     std::string newTitle = "SFML Settings Parser rocks!";

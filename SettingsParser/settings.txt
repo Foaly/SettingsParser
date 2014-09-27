@@ -5,20 +5,21 @@
 key = value
 
 # screen size
-width = 1024 #comment
+width = 1024
 height = 768
 
 # window title
 title = sfml tutorial
 
-# phycics constants
-g = 9.81iop
+# physics constants
+g = 9.81
 
-# player initials
-player = Maxs
-player = Xa m
+# create a rectangle at 10, 10 with width 5, height 10
+rectangle = 10,10,5,10
+
+# player initials (since the key is the same the value will be overwritten)
+player = M
+player = X
 
 # video mode
 fullscreen = TRUE
-
-autoModeDuration = 60
