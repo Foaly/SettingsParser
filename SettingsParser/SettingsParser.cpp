@@ -66,7 +66,7 @@ bool SettingsParser::read()
             // skip the assignment
             while(std::isspace(line[j], loc) || line[j] == '=')
                 j++;
-            
+
             // get the value string
             const std::string value = line.substr(j, line.size() - j);
 
@@ -117,7 +117,7 @@ bool SettingsParser::write() const
                     // skip the assignment
                     while(std::isspace(line[j], loc) || line[j] == '=')
                         j++;
-                
+
                     // get the value string
                     value = line.substr(j, line.size() - j);
                 }
@@ -159,12 +159,11 @@ bool SettingsParser::write() const
     return true;
 }
 
-
 void SettingsParser::print() const
 {
     for(auto& element: m_data)
         std::cout << element.first << " = " << element.second<< std::endl;
-
+    
     std::cout << std::endl << "Size: " << m_data.size() << std::endl;
 }
 
@@ -172,127 +171,4 @@ void SettingsParser::print() const
 bool SettingsParser::isChanged() const
 {
     return m_isChanged;
-}
-
-
-void SettingsParser::get(const std::string& key, std::string &value) const
-{
-    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        value = it->second;
-    }
-}
-
-
-void SettingsParser::get(const std::string& key, bool &value) const
-{
-    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        value = ((it->second == "TRUE") ? true : false);
-    }
-}
-
-
-void SettingsParser::get(const std::string& key, char &value) const
-{
-    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        value = it->second[0];
-    }
-}
-
-
-void SettingsParser::get(const std::string& key, int &value) const
-{
-    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        std::stringstream ss(it->second);
-        ss >> value;
-    }
-}
-
-
-void SettingsParser::get(const std::string& key, float &value) const
-{
-    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        std::stringstream ss(it->second);
-        ss >> value;
-    }
-}
-
-
-void SettingsParser::set(const std::string& key, const std::string value)
-{
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        it->second = value;
-        m_isChanged =  true;
-    }                                 
-}
-
-void SettingsParser::set(const std::string& key, const char* value)
-{
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        it->second = std::string(value);
-        m_isChanged =  true;
-    }                                 
-}
-
-
-void SettingsParser::set(const std::string& key, const bool value)
-{
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        it->second = (value) ? "TRUE" : "FALSE";
-        m_isChanged =  true;
-    }
-}
-
-
-void SettingsParser::set(const std::string& key, const char value)
-{
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        std::string tmp = "";
-        tmp = value;
-        it->second = tmp;
-        m_isChanged =  true;
-    }
-}
-
-
-void SettingsParser::set(const std::string& key, const int value)
-{
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        std::stringstream ss;
-        ss << value;
-        it->second = ss.str();
-        m_isChanged =  true;
-    }
-}
-
-
-void SettingsParser::set(const std::string& key, const float value)
-{
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        std::stringstream ss;
-        ss << value;
-        it->second = ss.str();
-        m_isChanged =  true;
-    }
 }
