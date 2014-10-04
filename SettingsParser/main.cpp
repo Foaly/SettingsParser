@@ -1,5 +1,6 @@
 #include "SettingsParser.hpp"
 #include <iostream>
+#include <vector>
 
 int main()
 {
@@ -31,6 +32,9 @@ int main()
     bool fullscreen;
     settings.get("fullscreen", fullscreen);
 
+    std::vector<int> rectangle;
+    settings.get("rectangle", rectangle);
+    
     //....
 
     std::string newTitle = "SFML Settings Parser rocks!";
