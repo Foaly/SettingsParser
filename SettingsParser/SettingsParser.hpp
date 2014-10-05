@@ -163,7 +163,7 @@ template<typename T>
 inline void SettingsParser::get(const std::string& key, T &value) {
     std::map<std::string, std::string>::const_iterator it = m_data.find(key);
     
-    if (it !=  m_data.end()){
+    if (it != m_data.end()){
         value = convertToType<T>(it->second);
     }
 }
@@ -171,7 +171,7 @@ inline void SettingsParser::get(const std::string& key, T &value) {
 template<typename T>
 inline void SettingsParser::get(const std::string& key, std::vector<T> &value) {
     std::map<std::string, std::string>::const_iterator it = m_data.find(key);
-    if (it!=m_data.end()){
+    if (it != m_data.end()){
         
         std::string output;
         std::istringstream parser(it->second);
@@ -197,7 +197,7 @@ inline void SettingsParser::set(const std::string& key, const T value){
     if (it != m_data.end())
     {
         it->second = convertToStr<T>(value);
-        m_isChanged =  true;
+        m_isChanged = true;
     }
 }
 
@@ -211,7 +211,7 @@ inline void SettingsParser::set(const std::string &key, const std::vector<T> val
         for (int i = 0; i < value.size() - 1; ++i){
             setString += convertToStr<T>(value.at(i)) + ",";
         }
-        setString+=convertToStr<T>(value.back());
+        setString += convertToStr<T>(value.back());
         
         it->second = setString;
         m_isChanged = true;

@@ -15,7 +15,7 @@ title = sfml tutorial
 g = 9.81
 
 # create a rectangle at 10, 10 with width 5, height 10
-rectangle = 10,10,5,10
+rectangle = 10, 10, 5, 10
 
 # player initials (since the key is the same the value will be overwritten)
 player = M
