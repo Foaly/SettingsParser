@@ -46,33 +46,20 @@ bool SettingsParser::read()
         std::cerr << "Error: Unable to open settings file: \"" << m_filename << "\" for reading!" << std::endl;
         return false;
     }
+
     std::string line;
-    const std::locale loc;
     while(std::getline(in, line))
     {
         // parse line
-        if(line.size() > 0 && line[0] != '#')
+        std::pair<std::string, std::string> keyValuePair = parseLine(line);
+
+        if(!keyValuePair.first.empty())
         {
-            size_t j = 0;
-            // trim leading whitespace
-            while(std::isspace(line[j], loc))
-                j++;
-            // get the key string
-            const int beginKeyString = j;
-            while(!std::isspace(line[j], loc) && line[j] != '=')
-                j++;
-            const std::string key = line.substr(beginKeyString, j - beginKeyString);
-
-            // skip the assignment
-            while(std::isspace(line[j], loc) || line[j] == '=')
-                j++;
-
-            // get the value string
-            const std::string value = line.substr(j, line.size() - j);
-
-            m_data[key] = value;
+            // if the line is not empty or a comment save it to the map
+            m_data[keyValuePair.first] = keyValuePair.second;
         }
     }
+
     in.close();
     m_isChanged = false;
     return true;
@@ -84,50 +71,33 @@ bool SettingsParser::write() const
     std::vector<std::pair<std::string, std::string> > fileContents;
 
     std::ifstream in(m_filename);
+
+    // read the file into a vector and replace the values of the keys that match with our map
     if(in.is_open())
     {
         std::string line, key, value;
-        const std::locale loc;
         while(std::getline(in, line))
         {
             // parse line
-            if(line.size() > 0 && line[0] != '#')
-            {
-                size_t j = 0;
-                // trim leading whitespace
-                while(std::isspace(line[j], loc))
-                    j++;
-                // get the key string
-                const int beginKeyString = j;
-                while(!std::isspace(line[j], loc) && line[j] != '=')
-                    j++;
-                key = line.substr(beginKeyString, j - beginKeyString);
+            std::pair<std::string, std::string> keyValuePair = parseLine(line);
+            key = keyValuePair.first;
 
+            if(!keyValuePair.first.empty())
+            {
                 // check if the key is found in the map
-                std::map<std::string, std::string>::const_iterator it = m_data.find(key);
+                std::map<std::string, std::string>::const_iterator it = m_data.find(keyValuePair.first);
                 if (it != m_data.end())
                 {
-                    // if so take it's value
-                    value = it->second;
-                }
-                else
-                {
-                    // if not get the value string from the file
-
-                    // skip the assignment
-                    while(std::isspace(line[j], loc) || line[j] == '=')
-                        j++;
-
-                    // get the value string
-                    value = line.substr(j, line.size() - j);
+                    // if so take it's value, otherwise the value from the file is kept
+                    keyValuePair.second = it->second;
                 }
             }
             else
             {
-                key = line;
-                value = "";
+                // if the line is empty or a comment simply take the whole line as the key
+                keyValuePair.first = line;
             }
-            fileContents.push_back(std::make_pair(key, value));
+            fileContents.push_back(keyValuePair);
         }
     }
     else
@@ -140,7 +110,6 @@ bool SettingsParser::write() const
     in.close();
 
 
-
     // open the file for writing
     std::ofstream out(m_filename);
     if(!out.is_open())
@@ -150,14 +119,53 @@ bool SettingsParser::write() const
     }
     for (std::vector<std::pair<std::string, std::string> >::const_iterator it = fileContents.begin() ; it != fileContents.end(); ++it)
     {
-        if(it->first[0] == '#' || it->first[0] == 0)
-            out << it->first << std::endl;
-        else
-            out << it->first << " = " << it->second << std::endl;
+        out << it->first; // write the key
+
+        if(!it->second.empty())
+            // if this line is not empty or a comment also write the assignment and the value
+            out << " = " << it->second; 
+
+        out << std::endl;
     }
     out.close();
     return true;
 }
+
+
+/**
+ * This method parses a line from our format ("key = value") into a std::pair<std::string, std::string>
+ * containing th key and the value.
+ * If the line is empty or a comment (starts with a '#') an empty pair is returned.
+ */
+std::pair<std::string, std::string> SettingsParser::parseLine(const std::string &line) const
+{
+    if(line.size() > 0 && line[0] != '#')
+    {
+        size_t index = 0;
+        // trim leading whitespace
+        while(std::isspace(line[index], m_locale))
+            index++;
+        // get the key string
+        const int beginKeyString = index;
+        while(!std::isspace(line[index], m_locale) && line[index] != '=')
+            index++;
+        const std::string key = line.substr(beginKeyString, index - beginKeyString);
+
+        // skip the assignment
+        while(std::isspace(line[index], m_locale) || line[index] == '=')
+            index++;
+
+        // get the value string
+        const std::string value = line.substr(index, line.size() - index);
+
+        // return the key value pair
+        return std::make_pair(key, value);
+    }
+
+    // if this line is emtpy or a comment, return an empty pair
+    return std::make_pair(std::string(), std::string());
+}
+
 
 void SettingsParser::print() const
 {

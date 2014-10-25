@@ -41,10 +41,12 @@ private:
     
     bool read();
     bool write() const;
+    std::pair<std::string, std::string> parseLine(const std::string &line) const;
 
     bool m_isChanged;
     std::string m_filename;
     std::map<std::string, std::string> m_data;
+    const std::locale m_locale;
 };
 
 
@@ -176,7 +178,7 @@ inline void SettingsParser::get(const std::string& key, std::vector<T> &value) c
         std::string output;
         std::istringstream parser(it->second);
         
-        int index = 0;
+        unsigned int index = 0;
         
         //split by comma
         while (getline(parser, output, ',')){

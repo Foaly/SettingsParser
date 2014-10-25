@@ -6,7 +6,7 @@ Please note that the keys have to be unique. If the same name is used twice, the
 
 This class can also be found at the [SFML wiki](https://github.com/LaurentGomila/SFML/wiki/Source:-Settings-Parser).
 
-### simple settings file
+### Simple settings file
 This is an example of what a settings file looks like.
 
 ```text
@@ -35,3 +35,6 @@ fullscreen = TRUE
 ```
 
 For a simple usage example take a look at the `main.cpp` file.
+
+### Dependencies
+This class depends on nothing, but the C++ standard library.
