@@ -59,7 +59,7 @@ bool SettingsParser::read()
                 j++;
             // get the key string
             const int beginKeyString = j;
-            while(!std::isspace(line[j], loc))
+            while(!std::isspace(line[j], loc) && line[j] != '=')
                 j++;
             const std::string key = line.substr(beginKeyString, j - beginKeyString);
 
@@ -99,7 +99,7 @@ bool SettingsParser::write() const
                     j++;
                 // get the key string
                 const int beginKeyString = j;
-                while(!std::isspace(line[j], loc))
+                while(!std::isspace(line[j], loc) && line[j] != '=')
                     j++;
                 key = line.substr(beginKeyString, j - beginKeyString);
 
