@@ -2,7 +2,7 @@
 
 This is simple class for reading and writing settings in a human readable from a text file. It allows you to read a `std::string`, `bool`, `char`, `int` or `float` from a file. You can then access these values from within your program. You may also change the values and write them back to the file. The syntax is basically a `key = value` pair.
 
-Please note that the keys have to be unique. If the same name is used twice, the value will be overwritten.
+Please note that the keys have to be unique. If the same name is used twice, the value will be overwritten with the later one.
 
 This class can also be found at the [SFML wiki](https://github.com/LaurentGomila/SFML/wiki/Source:-Settings-Parser).
 
@@ -26,7 +26,7 @@ title = sfml tutorial
 # phycics constants
 g = 9.81
 
-# player initials (since the key is the same the value will be overwritten)
+# player initials (since the key is the same the value will be set to 'X')
 player = M
 player = X
 

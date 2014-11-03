@@ -170,6 +170,10 @@ inline void SettingsParser::get(const std::string& key, T &value) const {
     }
 }
 
+/**
+ * This method tries to read the value of a key into a vector. The values have to be
+ * seperated by comma. The vector is cleared before it is filled.
+ */
 template<typename T>
 inline void SettingsParser::get(const std::string& key, std::vector<T> &value) const {
     std::map<std::string, std::string>::const_iterator it = m_data.find(key);
@@ -178,17 +182,11 @@ inline void SettingsParser::get(const std::string& key, std::vector<T> &value) c
         std::string output;
         std::istringstream parser(it->second);
         
-        unsigned int index = 0;
+        value.clear();
         
         //split by comma
         while (getline(parser, output, ',')){
-            
-            if (index < value.size())
-                value.at(index) = convertToType<T>(output);
-            else
-                value.push_back(convertToType<T>(output));
-            
-            ++index;
+            value.push_back(convertToType<T>(output));
         }
     }
 }
