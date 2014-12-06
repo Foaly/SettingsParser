@@ -75,12 +75,11 @@ bool SettingsParser::write() const
     // read the file into a vector and replace the values of the keys that match with our map
     if(in.is_open())
     {
-        std::string line, key, value;
+        std::string line;
         while(std::getline(in, line))
         {
             // parse line
             std::pair<std::string, std::string> keyValuePair = parseLine(line);
-            key = keyValuePair.first;
 
             if(!keyValuePair.first.empty())
             {
@@ -146,7 +145,7 @@ std::pair<std::string, std::string> SettingsParser::parseLine(const std::string 
         while(std::isspace(line[index], m_locale))
             index++;
         // get the key string
-        const int beginKeyString = index;
+        const size_t beginKeyString = index;
         while(!std::isspace(line[index], m_locale) && line[index] != '=')
             index++;
         const std::string key = line.substr(beginKeyString, index - beginKeyString);
