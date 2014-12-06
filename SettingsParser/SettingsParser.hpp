@@ -193,29 +193,23 @@ inline void SettingsParser::get(const std::string& key, std::vector<T> &value) c
 
 template<typename T>
 inline void SettingsParser::set(const std::string& key, const T value) {
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    if (it != m_data.end())
-    {
-        it->second = convertToStr<T>(value);
-        m_isChanged = true;
-    }
+    // the [] operator replaces the value if the key is found, if not it creates a new element
+    m_data[key] = convertToStr<T>(value);
+    m_isChanged = true;
 }
 
 template<typename T>
 inline void SettingsParser::set(const std::string &key, const std::vector<T> value) {
-    std::map<std::string, std::string>::iterator it = m_data.find(key);
-    
-    if (it != m_data.end()) {
-        
-        std::string setString;
-        for (int i = 0; i < value.size() - 1; ++i){
-            setString += convertToStr<T>(value.at(i)) + ",";
-        }
-        setString += convertToStr<T>(value.back());
-        
-        it->second = setString;
-        m_isChanged = true;
+    // transform the vector into a string that seperates the elements with a comma
+    std::string valueAsString;
+    for (size_t i = 0; i < value.size() - 1; ++i){
+        valueAsString += convertToStr<T>(value.at(i)) + ",";
     }
+    valueAsString += convertToStr<T>(value.back());
+
+    // the [] operator replaces the value if the key is found, if not it creates a new element
+    m_data[key] = valueAsString;
+    m_isChanged = true;
 }
 
 #endif // SETTINGSPARSER_INCLUDE
