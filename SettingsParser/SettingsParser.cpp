@@ -68,7 +68,7 @@ bool SettingsParser::read()
 
 bool SettingsParser::write() const
 {
-    std::vector<std::pair<std::string, std::string> > fileContents;
+    std::vector<std::pair<std::string, std::string>> fileContents;
 
     std::ifstream in(m_filename);
 
@@ -84,7 +84,7 @@ bool SettingsParser::write() const
             if(!keyValuePair.first.empty())
             {
                 // check if the key is found in the map
-                std::map<std::string, std::string>::const_iterator it = m_data.find(keyValuePair.first);
+                auto it = m_data.find(keyValuePair.first);
                 if (it != m_data.end())
                 {
                     // if so take it's value, otherwise the value from the file is kept
@@ -102,7 +102,7 @@ bool SettingsParser::write() const
     else
     {
         // Can't open file for reading. Use only the data from the map
-        for (std::map<std::string, std::string>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
+        for (auto it = m_data.begin(); it != m_data.end(); ++it)
             fileContents.push_back(std::make_pair(it->first, it->second));
     }
 
@@ -116,7 +116,7 @@ bool SettingsParser::write() const
         std::cerr << "Error: Unable to open settings file \"" << m_filename << "\" for writing!" << std::endl;
         return false;
     }
-    for (std::vector<std::pair<std::string, std::string> >::const_iterator it = fileContents.begin() ; it != fileContents.end(); ++it)
+    for (auto it = fileContents.begin() ; it != fileContents.end(); ++it)
     {
         out << it->first; // write the key
 

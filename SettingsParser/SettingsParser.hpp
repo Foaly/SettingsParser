@@ -163,7 +163,7 @@ inline std::string SettingsParser::convertToType<std::string>(const std::string 
 
 template<typename T>
 inline void SettingsParser::get(const std::string& key, T &value) const {
-    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
+    auto it = m_data.find(key);
     
     if (it != m_data.end()){
         value = convertToType<T>(it->second);
@@ -176,7 +176,7 @@ inline void SettingsParser::get(const std::string& key, T &value) const {
  */
 template<typename T>
 inline void SettingsParser::get(const std::string& key, std::vector<T> &value) const {
-    std::map<std::string, std::string>::const_iterator it = m_data.find(key);
+    auto it = m_data.find(key);
     if (it != m_data.end()){
         
         std::string output;
