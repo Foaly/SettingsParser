@@ -38,3 +38,6 @@ For a simple usage example take a look at the `main.cpp` file.
 
 ### Dependencies
 This class depends on nothing, but the C++ standard library.
+
+### License
+The code is released under the very permissive [zlib License](https://en.wikipedia.org/wiki/Zlib_License), which means you don't have to credit me, but of course it would be nice. Also I'd love to hear about your project. 
