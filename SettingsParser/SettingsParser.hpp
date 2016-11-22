@@ -221,7 +221,7 @@ template<typename T>
 inline void SettingsParser::set(const std::string &key, const std::vector<T> value) {
     // transform the vector into a string that seperates the elements with a comma
     std::string valueAsString;
-    for (size_t i = 0; i < value.size() - 1; ++i){
+    for (size_t i = 0; i < value.size(); ++i){
         valueAsString += convertToStr<T>(value.at(i)) + ",";
     }
     valueAsString += convertToStr<T>(value.back());
