@@ -18,6 +18,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 ////////////////////////////////////////////////////////////
 
+
 #ifndef SETTINGSPARSER_INCLUDE
 #define SETTINGSPARSER_INCLUDE
 
@@ -104,6 +105,13 @@ inline std::string SettingsParser::convertToStr<int>(int value) const {
 }
 
 template<>
+inline std::string SettingsParser::convertToStr<unsigned int>(unsigned int value) const {
+    std::stringstream ss;
+    ss << value;
+    return ss.str();
+}
+
+template<>
 inline std::string SettingsParser::convertToStr<float>(float value) const {
     std::stringstream ss;
     ss << value;
@@ -132,6 +140,15 @@ inline T SettingsParser::convertToType(const std::string &input) const {
 template<>
 inline int SettingsParser::convertToType<int>(const std::string &input) const {
     int value;
+    std::stringstream ss(input);
+    ss >> value;
+
+    return value;
+}
+
+template<>
+inline unsigned int SettingsParser::convertToType<unsigned int>(const std::string &input) const {
+    unsigned int value;
     std::stringstream ss(input);
     ss >> value;
 
