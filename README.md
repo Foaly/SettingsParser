@@ -1,8 +1,13 @@
-#SettingsParser
+# SettingsParser
 
-This is simple class for reading and writing settings in a human readable from a text file. It allows you to read a `std::string`, `bool`, `char`, `int` or `float` from a file. You can then access these values from within your program. You may also change the values and write them back to the file. The syntax is basically a `key = value` pair.
+This is simple class for reading and writing settings in a human readable from a text file.
+It allows you to read a `std::string`, `bool`, `char`, `int`, `float`, `double` and some other types from a file.
+You can then access these values from within your program.
+You may also change the values and write them back to the file.
+The syntax is basically a `key = value` pair.
 
-Please note that the keys have to be unique. If the same name is used twice, the value will be overwritten with the later one.
+Please note that the keys have to be unique.
+If the same name is used twice, the value will be overwritten with the later one.
 
 This class can also be found at the [SFML wiki](https://github.com/LaurentGomila/SFML/wiki/Source:-Settings-Parser).
 
@@ -40,4 +45,5 @@ For a simple usage example take a look at the `main.cpp` file.
 This class depends on nothing, but the C++ standard library.
 
 ### License
-The code is released under the very permissive [zlib License](https://en.wikipedia.org/wiki/Zlib_License), which means you don't have to credit me, but of course it would be nice. Also I'd love to hear about your project. 
+The code is released under the very permissive [zlib License](https://en.wikipedia.org/wiki/Zlib_License), which means you don't have to credit me, but of course it would be very nice.
+Also I'd love to hear about your project!
